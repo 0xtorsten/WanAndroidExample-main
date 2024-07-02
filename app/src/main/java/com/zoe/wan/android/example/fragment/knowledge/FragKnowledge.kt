@@ -15,6 +15,5 @@ class FragKnowledge: BaseFragment<FragmentKnowledgeBinding, FragKnowledgeModel>(
     }
 
     override fun initViewData() {
-        TODO("Not yet implemented")
     }
 }

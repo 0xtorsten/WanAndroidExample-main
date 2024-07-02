@@ -16,6 +16,5 @@ class FragHotKey:BaseFragment<FragmentHotKeyBinding, FragHotKeyViewModel>() {
     }
 
     override fun initViewData() {
-        TODO("Not yet implemented")
     }
 }

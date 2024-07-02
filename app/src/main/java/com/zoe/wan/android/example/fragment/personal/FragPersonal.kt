@@ -17,6 +17,5 @@ class FragPersonal: BaseFragment<FragmentPersonalBinding,FragPersonalModel>() {
     }
 
     override fun initViewData() {
-        TODO("Not yet implemented")
     }
 }

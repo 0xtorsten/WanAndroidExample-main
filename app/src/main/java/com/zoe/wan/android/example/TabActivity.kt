@@ -25,6 +25,7 @@ class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
     }
 
     override fun initViewData() {
+        initPages()
         //选中状态图片数组
         val icons = arrayOf(
             BitmapFactory.decodeResource(resources, R.drawable.icon_home_selected),
