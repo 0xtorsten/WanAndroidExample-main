@@ -24,5 +24,8 @@ class FragHome : BaseFragment<FragmentHomeBinding, FragHomeViewModel>() {
         viewModel?.list?.observe(viewLifecycleOwner) {
             it?.let { it1 -> adapter.setData(it1) }
         }
+        viewModel?.bannerData?.observe(viewLifecycleOwner) {
+            it?.let { it1 -> adapter.setBannerData(it1) }
+        }
     }
 }
