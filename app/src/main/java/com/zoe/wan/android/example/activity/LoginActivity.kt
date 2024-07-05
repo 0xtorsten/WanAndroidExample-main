@@ -3,6 +3,7 @@ package com.zoe.wan.android.example.activity
 import android.content.Context
 import android.content.Intent
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.youth.banner.util.LogUtils
 import com.zoe.wan.android.example.R
 import com.zoe.wan.android.example.databinding.ActivityLoginBinding
@@ -12,7 +13,7 @@ import com.zoe.wan.android.example.Constants
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
     companion object {
-        //0:登录 1:注册
+        //0:登录
         const val Intent_Type_Value = 0
         const val Intent_Type_name = "Intent_Type_name"
     }
@@ -46,26 +47,42 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 register()
             }
         }
+
+        //进入注册页面
+        binding?.registerBtn?.setOnClickListener {
+            startIntent(LoginActivity::class.java, false)
+        }
     }
 
+    /**
+     * 登录
+     */
     fun login() {
+        //登录成功后存储用户名 并跳转到主页
         val sp = getSharedPreferences("wanAndroidSP", Context.MODE_PRIVATE)
         viewModel?.login { username ->
-            println("登录成功")
-            SPUtils.getInstance().put(Constants.SP_USR_NAME, username)
-            println("SP存值 ${sp.getString(Constants.SP_USR_NAME, "")}")
-//            LogUtils.d("SP存值 ${sp.getString(Constants.SP_USR_NAME, "")}")
-            finish()
-            startActivity(Intent(this, TabActivity::class.java))
+            sp.edit().putString(Constants.SP_USR_NAME, username).apply()
+            ToastUtils.showShort("登录成功,SP：" + sp.getString(Constants.SP_USR_NAME, ""))
+            startIntent(TabActivity::class.java, false)
         }
     }
 
+    /**
+     * 注册
+     */
     fun register() {
-        val sp = getSharedPreferences("wanAndroidSP", Context.MODE_PRIVATE)
+        //注册成功后跳转到登录页面开始登陆
         viewModel?.register { username ->
-            println("注册成功")
-            SPUtils.getInstance().put(Constants.SP_USR_NAME, username)
-            println("SP存值 ${sp.getString(Constants.SP_USR_NAME, "")}")
+            startIntent(LoginActivity::class.java, true)
         }
+    }
+
+    fun startIntent(clazz: Class<*>, hasIntent: Boolean) {
+        finish()
+        val intent = Intent(this, clazz)
+        if (hasIntent) {
+            intent.putExtra(Intent_Type_name, Intent_Type_Value)
+        }
+        startActivity(intent)
     }
 }
