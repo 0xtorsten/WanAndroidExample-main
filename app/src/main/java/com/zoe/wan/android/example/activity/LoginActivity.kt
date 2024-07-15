@@ -61,8 +61,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         //登录成功后存储用户名 并跳转到主页
         val sp = getSharedPreferences("wanAndroidSP", Context.MODE_PRIVATE)
         viewModel?.login { username ->
-            sp.edit().putString(Constants.SP_USR_NAME, username).apply()
-            ToastUtils.showShort("登录成功,SP：" + sp.getString(Constants.SP_USR_NAME, ""))
+//            sp.edit().putString(Constants.SP_USR_NAME, username).apply()
+            SPUtils.getInstance().put(Constants.SP_USR_NAME, username)
+            ToastUtils.showShort("登录成功,SP：" + SPUtils.getInstance().getString(Constants.SP_USR_NAME))
             startIntent(TabActivity::class.java, false)
         }
     }

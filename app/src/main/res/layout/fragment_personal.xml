@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="personalVm"
             type="com.zoe.wan.android.example.fragment.personal.FragPersonalModel" />
@@ -22,12 +24,14 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/personalHead"
                 android:layout_width="@dimen/dp_80"
                 android:layout_height="@dimen/dp_80"
                 android:background="@mipmap/ic_launcher_round"
                 android:scaleType="centerCrop" />
 
             <TextView
+                android:id="@+id/personalUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
@@ -120,15 +124,15 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/personalLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_80"
-            android:text="退出登录"
-            android:textColor="@color/white"
-            android:id="@+id/personalLogout"
-            android:textSize="@dimen/sp_16"
             android:layout_marginHorizontal="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_80"
             android:background="@color/purple_200"
-            />
+            android:text="退出登录"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18"
+            android:visibility="@{personalVm.showLogoutBtn==true ? View.VISIBLE : View.GONE}"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

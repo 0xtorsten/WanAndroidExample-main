@@ -21,19 +21,21 @@ class FragPersonal : BaseFragment<FragmentPersonalBinding, FragPersonalModel>() 
     }
 
     override fun initViewData() {
-        val username = SPUtils.getInstance().getString(Constants.SP_USR_NAME)
-        if (username.isNullOrEmpty()) {
-            binding?.personalTv?.text = "未登录"
-        } else {
-            binding?.personalTv?.text = "已登录"
+        binding?.personalHead?.setOnClickListener { shouldLogin() }
+        binding?.personalUsername?.setOnClickListener { shouldLogin() }
+        // 退出登录
+        binding?.personalLogout?.setOnClickListener { viewModel?.logout() }
+    }
+
+    /**
+     * 是否跳转到登录页面
+     */
+    private fun shouldLogin() {
+        if (viewModel?.showLogoutBtn?.get() == true) {
+            return
         }
-        binding?.personalTv?.setOnClickListener {
-            val intent = Intent(context, LoginActivity::class.java)
-            if (username.isNullOrEmpty()) {
-                intent.putExtra(LoginActivity.Intent_Type_name, LoginActivity.Intent_Type_Value)
-            }
-            //intent.putExtra(LoginActivity.Intent_Type_name, LoginActivity.Intent_Type_Value)
-            startActivity(intent)
-        }
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.putExtra(LoginActivity.Intent_Type_name, LoginActivity.Intent_Type_Value)
+        startActivity(intent)
     }
 }
